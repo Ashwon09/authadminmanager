@@ -10,6 +10,7 @@ const verifyToken = (req, res, next) => {
         return;
       }
       req.user = user;
+      console.log(user);
       next();
     });
   } else {
@@ -17,13 +18,24 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-const verifyTokenAndAuthorization = (req, res, next) => {
+const verifyTokenAndManager = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user.role =="manager"|| req.user.role =="Admin") {
       next();
     } else {
       res.status(403).json("you are not allowed");
     }
   });
 };
-module.exports = { verifyToken, verifyTokenAndAuthorization };
+
+const verifyTokenAndAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.role =="Admin") {
+      next();
+    } else {
+      res.status(403).json("you are not allowed");
+    }
+  });
+};
+
+module.exports = { verifyToken, verifyTokenAndManager, verifyTokenAndAdmin };

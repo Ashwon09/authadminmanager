@@ -8,6 +8,7 @@ router.post("/register", async (req, res) => {
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
+    role: req.body.role,
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.PASS_SEC
@@ -41,7 +42,7 @@ router.post("/login", async (req, res) => {
     const accesstoken = jwt.sign(
       {
         id: user.id,
-        isAdmin: user.isAdmin,
+        role: user.role,
       },
       process.env.JWT_SEC,
       {expiresIn:"3d"}

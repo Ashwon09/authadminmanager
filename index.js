@@ -16,11 +16,7 @@ mongoose
   });
 
   app.use(cookieParser());
-  app.use(session({
-    resave: true,
-    saveUninitialized:true,
-    secret:"secret" 
-  }));
+
 app.use(express.json()); 
 
 app.use("/api/users", userRoute);
