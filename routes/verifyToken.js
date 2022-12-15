@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndManager = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.role =="manager"|| req.user.role =="Admin") {
+    if (req.user.role.toLowerCase() =="manager"|| req.user.role.toLowerCase() =="admin") {
       next();
     } else {
       res.status(403).json("you are not allowed");

@@ -9,4 +9,13 @@ router.get("/manager", verifyTokenAndManager, (req, res)=>{
 router.get("/admin", verifyTokenAndAdmin, (req, res)=>{
   res.status(200).json("you are the admin");
 });
+
+router.get("/find", async (req,res)=>{
+  try {
+    const Users = await User.find();
+    res.status(200).json(Users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
 module.exports = router;
